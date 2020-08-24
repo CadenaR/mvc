@@ -1,5 +1,5 @@
 
-let ProductModel = require('../models/Product')
+let ProductModel = require('../models/Product');
 
 exports.homepage = (req, res) => {
   ProductModel.all()

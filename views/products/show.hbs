@@ -1,0 +1,27 @@
+<h1>Product</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{product.name}}</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>{{product.price}}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{product.description}}</td>
+    </tr>
+    <tr>
+        <td>
+            <button onclick="window.location.href='/products/{{ product.id }}/edit'">Edit</button>
+        </td>
+        <td>
+            <form method="POST" action="/products/{{ product.id }}?_method=DELETE">
+                <input type="submit" value="DELETE">
+            </form>
+        </td>
+    </tr>
+</table>
+
+
