@@ -80,6 +80,17 @@ exports.paginated = (req, res) => {
   let page = req.params.page;
   ProductModel.all()
     .then((data) => {
-      res.json(data);
+      let products = data;
+      var paged = [];
+      if (products.length <= 5) {
+        res.json(products);
+      } else {
+        for(i=(page*5); i < (page*5 + 5); i++) {
+          if (i < products.length) {
+            paged.push(products[i]);
+          }
+        }
+        res.json(paged);
+      }
     });
 };

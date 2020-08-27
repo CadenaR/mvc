@@ -1,11 +1,22 @@
 <h1>Hola MVC</h1>
 <p>Lista de productos:</p>
-<table>
+<table id="products">
 
 </table>
 
 <button onclick="window.location.href='/products/create'">Add Product</button>
 <button onclick="window.location.href='./about-us'">About us</button>
+<br><br><br>
+<table>
+    <tr>
+        <td>
+            <button id="prev" onclick="prevPage()">Prev</button>
+        </td>
+        <td>
+            <button onclick="nextPage()">Next</button>
+        </td>
+    </tr>
+</table>
 
 <script>
     var page = 0;
@@ -18,7 +29,7 @@
         $.ajax({
             url: '/products/page/' + page,
             success: function (products) {
-                let table = $('table');
+                let table = $('#products');
                 table.html('');
 
                 products.forEach(product => {
@@ -33,6 +44,9 @@
                         </tr>
                     `);
                 })
+            },
+            error: function () {
+                page--;
             }
         });
     }
@@ -41,11 +55,21 @@
         $.ajax({
             url: '/products/' + id,
             method: 'DELETE',
-            success: function (res) {
-                console.log(res)
-            }
         });
 
         getProducts();
+    }
+
+    function nextPage() {
+        page++;
+        getProducts();
+        document.getElementById('prev').style.display = "block";
+    }
+
+    function prevPage() {
+        if(page > 0) {
+            page--;
+            getProducts();
+        } 
     }
 </script>
