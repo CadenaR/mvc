@@ -10,6 +10,8 @@ router.get('/products/create', ProductsController.create);
 
 router.post('/products', ProductsController.store);
 
+router.get('/products/page/:page', ProductsController.paginated);
+
 router.get('/products/:id', ProductsController.show);
 
 router.get('/products/:id/edit', ProductsController.edit);

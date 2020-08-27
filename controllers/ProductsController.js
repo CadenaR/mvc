@@ -71,7 +71,15 @@ exports.delete = (req, res) => {
       }
       ProductModel.delete(product.id)
         .then((id) => {
-          res.redirect('/');
+          res.status(200).send("success");
         });
+    });
+};
+
+exports.paginated = (req, res) => {
+  let page = req.params.page;
+  ProductModel.all()
+    .then((data) => {
+      res.json(data);
     });
 };

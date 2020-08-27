@@ -1,8 +1,51 @@
 <h1>Hola MVC</h1>
 <p>Lista de productos:</p>
-{{#each products}}
-<a href="/products/{{ id }}"> <p>{{ id }} - {{ name }}</p></a>
-{{/each}}
+<table>
+
+</table>
 
 <button onclick="window.location.href='/products/create'">Add Product</button>
 <button onclick="window.location.href='./about-us'">About us</button>
+
+<script>
+    var page = 0;
+
+    $(document).ready(function () {
+        getProducts();
+    });
+
+    function getProducts() {
+        $.ajax({
+            url: '/products/page/' + page,
+            success: function (products) {
+                let table = $('table');
+                table.html('');
+
+                products.forEach(product => {
+                    table.append(`
+                        <tr>
+                            <td>
+                                <a href="/products/${product.id}"> <p>${product.id} - ${product.name}</p></a>
+                            </td>
+                            <td>
+                                <button onclick="deleteProduct(${product.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                })
+            }
+        });
+    }
+
+    function deleteProduct(id) {
+        $.ajax({
+            url: '/products/' + id,
+            method: 'DELETE',
+            success: function (res) {
+                console.log(res)
+            }
+        });
+
+        getProducts();
+    }
+</script>

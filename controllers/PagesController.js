@@ -2,11 +2,7 @@
 let ProductModel = require('../models/Product');
 
 exports.homepage = (req, res) => {
-  ProductModel.all()
-    .then((data) => {
-      let products = data;
-      res.render('pages/homepage', { products: products });
-    });
+  res.render('pages/homepage');
 }
 
 exports.about = (req, res) => {
